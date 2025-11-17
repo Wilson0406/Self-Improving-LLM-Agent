@@ -33,16 +33,16 @@ This project is a web-based tool that helps users extract structured data from P
 
 1. Clone the repository and navigate to the project folder.
 
-2. Create and activate environment:
-```python -m venv env```
+2. Create and activate environment:\
+```python -m venv env```\
 ```env\Scripts\activate```
-3. Install required packages:
+3. Install required packages:\
 ```pip install -r requirements.txt```
 
 
 4. Add your Azure Document Intelligence, GPT-5 keys/configuration, and db connection string to a `.env` file (see .env.example).
 
-5. Run the app:
+5. Run the app:\
 ```streamlit run main.py```
 
 6. Upload a PDF and Excel file using the sidebar form.
@@ -62,13 +62,12 @@ This project is a web-based tool that helps users extract structured data from P
 
 ## Folder Structure
 
-├── main.py # Main Streamlit app
-├── extraction_agent.py # Extraction agent code (LLM + ADK)
-├── improvement_agent.py # Prompt improvement agent code
-├── document_intelligence.py # Azure Document Intelligence wrapper: reads PDF, extracts text/blocks/metadata and returns structured page content for the extraction agent  
-├── database.py # Persistence layer: extracted results, feedback, and improved prompts; simple CRUD helpers for the app  
-
-├── requirements.txt # Python dependencies
+├── main.py # Main Streamlit app\
+├── extraction_agent.py # Extraction agent code (LLM + ADK)\
+├── improvement_agent.py # Prompt improvement agent code\
+├── document_intelligence.py # Azure Document Intelligence wrapper: reads PDF, extracts text/blocks/metadata and returns structured page content for the extraction agent  \
+├── database.py # Persistence layer: extracted results, feedback, and improved prompts; simple CRUD helpers for the app  \
+├── requirements.txt # Python dependencies\
 ├── .env # API keys and config (not committed)
 
 
