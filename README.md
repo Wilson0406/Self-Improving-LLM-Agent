@@ -40,7 +40,7 @@ This project is a web-based tool that helps users extract structured data from P
 ```pip install -r requirements.txt```
 
 
-4. Add your Google ADK and GPT-4o keys/configuration to a `.env` file (see ADK docs).
+4. Add your Azure Document Intelligence, GPT-5 keys/configuration, and db connection string to a `.env` file (see .env.example).
 
 5. Run the app:
 ```streamlit run main.py```
