@@ -9,10 +9,15 @@ from google.genai import types
 
 load_dotenv()
 
-
+# Configure for Azure OpenAI
 extract_agent = LlmAgent(
     name="pdf_to_excel_extractor",
-    model=LiteLlm(model="openai/gpt-4o", ),
+    model=LiteLlm(
+        model=os.getenv("OPENAI_DEPLOYMENT"),
+        api_base=os.getenv("OPENAI_ENDPOINT"),
+        api_key=os.getenv("OPENAI_API_KEY"),
+        api_version=os.getenv("OPENAI_API_VERSION")
+    ),
     description="Extracts specified columns from PDF using Excel instructions.",
     instruction=f"""
         "You are an expert data extractor for business documents. "
@@ -21,16 +26,8 @@ extract_agent = LlmAgent(
     """
 )
 
-async def call_extraction_agent(pdf_text, columns, instructions):
-    schema_str = ', '.join(columns)
-    instr_str = '; '.join(instructions)
-    prompt = (
-        f"Extract the following columns from the PDF text:\n"
-        f"Columns: {schema_str}\n"
-        f"Instructions: {instr_str}\n"
-        f"PDF Content:\n{pdf_text[:2000]}\n"
-        "Output JSON only with column/value pairs."
-    )
+async def call_extraction_agent(prompt, columns, instructions):
+    # Use the prompt that's passed in directly instead of rebuilding it
     
     temp_service = InMemorySessionService()
     example_session = await temp_service.create_session(
@@ -57,12 +54,3 @@ async def call_extraction_agent(pdf_text, columns, instructions):
         result_data += getattr(res, "text", str(res))
     print("Agent Response:", full_text)
     return full_text
-
-# # Example usage:
-# if __name__ == "__main__":
-#     # Placeholder test data (replace with actual Streamlit utility output)
-#     pdf_text = "Company Name: ExampleCorp\nDate: 2023-10-01\nTotal: $1,234.56"
-#     columns = ["Company Name", "Date", "Total"]
-#     instructions = ["Extract the registered company name", "Format date as YYYY-MM-DD", "Get the invoice's total amount"]
-#     extracted = call_extraction_agent(pdf_text, columns, instructions)
-#     print("Extracted Data:", extracted)

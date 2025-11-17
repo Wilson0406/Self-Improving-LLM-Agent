@@ -103,6 +103,7 @@ pydantic==2.12.3
 pydantic-settings==2.11.0
 pydantic_core==2.41.4
 pydeck==0.9.1
+pyodbc==5.3.0
 pyparsing==3.2.5
 PyPDF2==3.0.1
 python-dateutil==2.9.0.post0
