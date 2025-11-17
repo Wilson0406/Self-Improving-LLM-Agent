@@ -43,7 +43,7 @@ This project is a web-based tool that helps users extract structured data from P
 4. Add your Google ADK and GPT-4o keys/configuration to a `.env` file (see ADK docs).
 
 5. Run the app:
-```streamlit run app.py```
+```streamlit run main.py```
 
 6. Upload a PDF and Excel file using the sidebar form.
 
