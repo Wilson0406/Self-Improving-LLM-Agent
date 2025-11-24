@@ -1,28 +1,22 @@
-CREATE PROCEDURE usp_InsertDocumentRequest
-    @FileName NVARCHAR(255),
-    @UserID NVARCHAR(100) = NULL,
-    @SourceType NVARCHAR(50) = NULL
+CREATE PROCEDURE usp_GetActivePrompt
+    @UseCase NVARCHAR(100) = NULL
 AS
 BEGIN
-    SET NOCOUNT ON;
-
-    INSERT INTO document_master (
-        FileName,
-        ExtractionStatus,
-        CreatedTime,
-        LastUpdated,
-        UserID,
-        SourceType,
-        RetryCount
-    )
-    VALUES (
-        @FileName,
-        'Submitted',
-        GETDATE(),
-        GETDATE(),
-        @UserID,
-        @SourceType,
-        0                  -- RetryCount is 0 for fresh requests
-    );
+	SET NOCOUNT ON;
+    
+    SELECT TOP 1
+		PromptID,
+        PromptTitle,
+        PromptText,
+        UseCase,
+        EffectivenessScore
+	FROM
+		model_prompt_library
+	WHERE
+		IsActive = 1
+        AND (@UseCase IS NULL OR UseCase = @UseCase)
+	ORDER BY
+		EffectivenessScore DESC,
+        LastModifiedTime DESC;
 END;
 GO
